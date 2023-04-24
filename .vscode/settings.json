@@ -1,0 +1,9 @@
+{
+  "maven.view": "flat",
+     "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C:\\Users\\Milica\\Desktop\\jars\\mssql-jdbc-12.2.0.jre8.jar"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
