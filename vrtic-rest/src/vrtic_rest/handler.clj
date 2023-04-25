@@ -32,15 +32,38 @@
       }
     }
 
-    ; Program API
+   ; Program API
     (context "/programi" []
       :tags ["programi"]
 
       (GET "/hello-world" [] "Hello World")
-      
+
       (GET "/" []
         :summary "Vrati sve programe"
         (ok (listaPrograma)))
-    )
+
+      (GET "/:programID" []
+        :summary "Vrati program po Id-ju"
+        :path-params [programID :- s/Any]
+        (ok (vratiProgramPoId programID)))
+
+      (POST "/dodaj-program"  []
+        :summary "Dodaj program"
+        :body [body DodajProgramModel]
+        (def createResult (dodajProgram body))
+        (ok createResult))
+
+      (POST "/izmeni-program/:programID"  []
+        :summary "Izmeni program"
+        :path-params [programID :- s/Any]
+        :body [body IzmeniProgramModel]
+        (def createResult (izmeniProgram programID body))
+        (ok createResult))
+
+      (DELETE "/obrisi-program/:programID" []
+        :summary "Obrisi program"
+        :path-params [programID :- s/Any]
+        (def deleteResult (obrisiProgram programID))
+        (ok nil)))
     )
   )
