@@ -8,9 +8,11 @@
    [schema.core :as s]
    [domen.program :refer :all]
    [domen.vaspitac :refer :all]
-   [servisi.program :refer :all]
+   [domen.grupa :refer :all]
    [ring.util.http-response :refer :all]
-   [servisi.program :refer :all]))
+   [servisi.program :refer :all]
+   [servisi.vaspitac :refer :all]
+   [servisi.grupa :refer :all]))
 
 (defn listaPrograma []
   (vratiSvePrograme))
@@ -24,9 +26,10 @@
               :spec "/swagger.json"
               :data {:info {:title "VRTIC API" :description "API za vrtic"}
                      :tags [{:name "Programi", :description "Programi u vrticu"}
-                            {:name "Vaspitaci", :description "Vaspitaci u vrticu"}]}}}
+                            {:name "Vaspitaci", :description "Vaspitaci u vrticu"}
+                            {:name "Grupe", :description "Grupe u vrticu"}]}}}
 
-   ; Program API
+    ; Program API
    (context "/programi" []
      :tags ["programi"]
 
@@ -61,6 +64,7 @@
        (ok nil)))
 
 
+
    (context "/vaspitaci" []
      :tags ["vaspitaci"]
 
@@ -92,4 +96,37 @@
        :summary "Obrisi vaspitaca"
        :path-params [vaspitacID :- s/Any]
        (def deleteResult (obrisiVaspitaca vaspitacID))
+       (ok nil)))
+
+   (context "/grupe" []
+     :tags ["grupe"]
+
+   ; GRUPA
+
+     (GET "/" []
+       :summary "Vrati sve grupe"
+       (ok (vratiSveGrupe)))
+
+     (GET "/:grupaID" []
+       :summary "Vrati grupe po Id-ju"
+       :path-params [grupaID :- s/Any]
+       (ok (vratiGrupuPoId grupaID)))
+
+     (POST "/dodaj-grupu"  []
+       :summary "Dodaj grupu"
+       :body [body DodajGrupaModel]
+       (def createResult (dodajGrupu body))
+       (ok createResult))
+
+     (POST "/izmeni-grupu/:grupaID"  []
+       :summary "Izmeni grupu"
+       :path-params [grupaID :- s/Any]
+       :body [body IzmeniGrupaModel]
+       (def createResult (izmeniGrupu grupaID body))
+       (ok createResult))
+
+     (DELETE "/obrisi-grupu/:grupaID" []
+       :summary "Obrisi grupu"
+       :path-params [grupaID :- s/Any]
+       (def deleteResult (obrisiGrupu grupaID))
        (ok nil)))))
