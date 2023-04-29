@@ -12,6 +12,9 @@ FIXME: explanation
 
     $ java -jar vrtic-clojure-0.1.0-standalone.jar [args]
 
+    Here in Vrtic project, we can find vrtic-rest API 
+
+    Rest API use Leiningen https://leiningen.org/ 
 ## Options
 
 FIXME: listing of options this app accepts.
