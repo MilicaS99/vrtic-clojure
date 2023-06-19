@@ -33,8 +33,6 @@
    (context "/programi" []
      :tags ["programi"]
 
-     (GET "/hello-world" [] "Hello World")
-
      (GET "/" []
        :summary "Vrati sve programe"
        (ok (listaPrograma)))
